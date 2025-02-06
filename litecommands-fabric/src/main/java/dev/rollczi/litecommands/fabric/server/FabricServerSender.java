@@ -10,9 +10,11 @@ import java.util.List;
 
 public class FabricServerSender extends AbstractPlatformSender {
     private final ServerCommandSource source;
+    private final FabricServerPlatform platform;
 
-    public FabricServerSender(ServerCommandSource source) {
+    public FabricServerSender(ServerCommandSource source, FabricServerPlatform platform) {
         this.source = source;
+        this.platform = platform;
     }
 
     @Override
@@ -34,6 +36,6 @@ public class FabricServerSender extends AbstractPlatformSender {
 
     @Override
     public boolean hasPermission(String permission) {
-        return false;
+        return this.platform.getConfiguration().hasPermission(this.source, permission);
     }
 }

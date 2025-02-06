@@ -2,6 +2,8 @@ package dev.rollczi.litecommands.fabric.client;
 
 import dev.rollczi.litecommands.fabric.FabricAbstractPlatform;
 import dev.rollczi.litecommands.fabric.LiteFabricSettings;
+import dev.rollczi.litecommands.platform.PlatformSender;
+import dev.rollczi.litecommands.platform.PlatformSenderFactory;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -11,7 +13,7 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 public class FabricClientPlatform extends FabricAbstractPlatform<FabricClientCommandSource> {
 
     public FabricClientPlatform(LiteFabricSettings settings) {
-        super(settings, source -> new FabricClientSender(source));
+        super(settings);
     }
 
     @Override
@@ -24,4 +26,13 @@ public class FabricClientPlatform extends FabricAbstractPlatform<FabricClientCom
         });
     }
 
+    @Override
+    public PlatformSenderFactory<FabricClientCommandSource> getSenderFactory() {
+        return this::createSender;
+    }
+
+    @Override
+    public PlatformSender createSender(FabricClientCommandSource nativeSender) {
+        return new FabricClientSender(nativeSender, this);
+    }
 }

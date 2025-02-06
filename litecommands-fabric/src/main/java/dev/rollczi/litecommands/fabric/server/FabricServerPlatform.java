@@ -2,12 +2,14 @@ package dev.rollczi.litecommands.fabric.server;
 
 import dev.rollczi.litecommands.fabric.FabricAbstractPlatform;
 import dev.rollczi.litecommands.fabric.LiteFabricSettings;
+import dev.rollczi.litecommands.platform.PlatformSender;
+import dev.rollczi.litecommands.platform.PlatformSenderFactory;
 import net.minecraft.server.command.ServerCommandSource;
 
 public class FabricServerPlatform extends FabricAbstractPlatform<ServerCommandSource> {
 
     public FabricServerPlatform(LiteFabricSettings settings) {
-        super(settings, source -> new FabricServerSender(source));
+        super(settings);
     }
 
     @Override
@@ -23,4 +25,13 @@ public class FabricServerPlatform extends FabricAbstractPlatform<ServerCommandSo
         }
     }
 
+    @Override
+    public PlatformSenderFactory<ServerCommandSource> getSenderFactory() {
+        return this::createSender;
+    }
+
+    @Override
+    public PlatformSender createSender(ServerCommandSource nativeSender) {
+        return new FabricServerSender(nativeSender, this);
+    }
 }

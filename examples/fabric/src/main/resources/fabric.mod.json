@@ -21,5 +21,9 @@
         "client": [
             "dev.rollczi.example.fabric.client.ClientExampleFabric"
         ]
-    }
+    },
+    "depends": {
+        "luckperms": "*"
+    },
+    "accessWidener": "litecommands-example.accesswidener"
 }
