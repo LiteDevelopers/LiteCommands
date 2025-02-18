@@ -9,9 +9,11 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 @Environment(EnvType.CLIENT)
 public class FabricClientSender extends AbstractPlatformSender {
     private final FabricClientCommandSource source;
+    private final FabricClientPlatform platform;
 
-    public FabricClientSender(FabricClientCommandSource source) {
+    public FabricClientSender(FabricClientCommandSource source, FabricClientPlatform platform) {
         this.source = source;
+        this.platform = platform;
     }
 
     @Override
@@ -26,6 +28,6 @@ public class FabricClientSender extends AbstractPlatformSender {
 
     @Override
     public boolean hasPermission(String permission) {
-        return false;
+        return this.platform.getConfiguration().hasPermission(this.source, permission);
     }
 }

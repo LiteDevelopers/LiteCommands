@@ -4,17 +4,16 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.rollczi.litecommands.command.CommandRoute;
-import dev.rollczi.litecommands.platform.AbstractSimplePlatform;
+import dev.rollczi.litecommands.platform.AbstractPlatform;
 import dev.rollczi.litecommands.platform.Platform;
 import dev.rollczi.litecommands.platform.PlatformInvocationListener;
-import dev.rollczi.litecommands.platform.PlatformSenderFactory;
 import dev.rollczi.litecommands.platform.PlatformSuggestionListener;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public abstract class FabricAbstractPlatform<SOURCE> extends AbstractSimplePlatform<SOURCE, LiteFabricSettings> implements Platform<SOURCE, LiteFabricSettings> {
+public abstract class FabricAbstractPlatform<SOURCE> extends AbstractPlatform<SOURCE, LiteFabricSettings> implements Platform<SOURCE, LiteFabricSettings> {
 
     protected final Map<UUID, FabricCommand<SOURCE>> fabricCommands = new HashMap<>();
 
@@ -28,8 +27,8 @@ public abstract class FabricAbstractPlatform<SOURCE> extends AbstractSimplePlatf
         }
     }
 
-    protected FabricAbstractPlatform(LiteFabricSettings settings, PlatformSenderFactory<SOURCE> factory) {
-        super(settings, factory);
+    protected FabricAbstractPlatform(LiteFabricSettings settings) {
+        super(settings);
         registerEvents();
     }
 
